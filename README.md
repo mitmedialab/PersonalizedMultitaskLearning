@@ -2,7 +2,7 @@
 Code for performing 3 multitask machine learning methods: deep neural networks, Multitask Multi-kernel Learning (MTMKL), and a hierarchical Bayesian model (HBLR). 
 
 ## This code is still under construction!
-Please note that this code is fresh from our research proejct. While all the functionality is here, we are still working cleaning up some aspects and providing proper documentation. We plan to complete this process before the publication of the paper mentioned above. In the mean time, if you have any questions please email us at jaquesn@mit.edu or sataylor@mit.edu. 
+Please note that this code is fresh from our research proejct. While all the functionality is here, we are still working cleaning up some aspects and providing proper documentation. We plan to complete this process before the publication of the associated paper. In the mean time, if you have any questions please email us at jaquesn@mit.edu or sataylor@mit.edu. 
 
 ## Please cite our work!
 Citation TBD
