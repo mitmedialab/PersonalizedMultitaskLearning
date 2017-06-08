@@ -1,0 +1,7 @@
+NN job of some type - happiness
+python NeuralNetworks/tensorFlowWrapper.py Path/task_list_file-Happiness_ multitask wellbeing
+../outputs/some_result_for_happiness.txt
+
+NN job of some type - calmness
+python NeuralNetworks/tensorFlowWrapper.py Path/task_list_file-Calmness_ multitask wellbeing
+../outputs/some_result_for_calmness.txt
