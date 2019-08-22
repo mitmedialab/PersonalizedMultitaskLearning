@@ -1,11 +1,12 @@
-""" This file allows multiple jobs to be run on a server. 
-	After each job, an email is sent to notify desired people 
-	of its completion.
+""" This file allows multiple jobs to be run on a server. After each job, an 
+	email is sent to notify desired people of its completion.
 
-	Must specify a text job file that contains the names and 
-	commands for each job. Each job has 4 lines, containing:
-	1) the name, 2) the command, 3) the location of a file where
-	the job output should be saved, 4) a blank line.
+	Must specify a text job file that contains the names and commands for each 
+	job. Each job has 4 lines, containing: 
+		1) the name, 
+		2) the command, 
+		3) the location of a file where the job output should be saved, 
+		4) a blank line.
 
 	An example job file format is as follows:
 
