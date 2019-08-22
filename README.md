@@ -12,7 +12,7 @@ Jaques, N.\*, Taylor S.\*, Nosakhare E., Sano A., Picard R., <strong>"Multi-task
 
 # Models in this code:
 
-## Multitask Neural Network 
+## Multitask Neural Network (MTL-NN)
 
 ![image](mtl_nn_clusters.png)
 
@@ -30,7 +30,26 @@ be more strongly affected by a lack of social support than another cluster.
 
 ## Multitask Multi-kernel Learning (MTMKL)
 
+MTMKL (originally developed by <a href="https://www.sciencedirect.com/science/article/pii/S0925231214005025">Kandemir 
+et. al.</a>) is a modified version of Multi-Kernel Learning (MKL) in which tasks 
+share information through kernel weights on the modalities.  MTMKL uses a least-squares support vector machine (LSSVM) 
+for each task-specific model. Unlike the canonical SVM, the LSSVM uses a quadratic error on the “slack” variables 
+instead of an L1 error. As a result, the LSSVM can be learned by solving a series of linear equations in contrast to 
+using quadratic programing to learn a canonical SVM model.
+
+
 ## Hierarchical Bayesian Logistic Regression (HBLR)
+
+In hierarchical Bayesian MTL approaches, the model for each task draws its parameters from a common prior distribution. 
+As the model is trained, the common prior is updated, allowing information to be shared across tasks. The model we 
+adopt, which was originally proposed by <a href="http://www.jmlr.org/papers/v8/xue07a.html">Xue et. al.</a>, draws logistic regression (LR) weights for each task 
+from a shared Dirichlet Process (DP) prior; we call this model Hierarchical Bayesian Logistic Regression (HBLR).
+
+In contrast with our prior approaches (MTL-NN and MTMKL), the HBLR model allows us to directly define each task as 
+predicting a label (e.g. tomorrow's stress level) of a single user, since the model is able to implicitly learn its 
+own (soft) clustering. This model clusters tasks that are most similar in terms of their relationship between the 
+input features and their resulting outcome (i.e. decision boundaries) while simultaneously learning the prediction 
+function.
 
 # Structure
 
