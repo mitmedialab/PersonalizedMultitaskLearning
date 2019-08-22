@@ -1,3 +1,4 @@
+"""Performs hyperparameter sweep for the logistic regression (LR) model."""
 import matplotlib
 matplotlib.use('Agg')
 import numpy as np

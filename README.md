@@ -1,14 +1,15 @@
 # Personalized Multitask Learning
-Code for performing 3 multitask machine learning methods: deep neural networks, Multitask Multi-kernel Learning (MTMKL), and a hierarchical Bayesian model (HBLR). 
+This repo contains code for 3 multitask machine learning methods: deep neural networks, Multitask Multi-kernel Learning (MTMKL), and a hierarchical Bayesian model (HBLR). These methods can be used to personalize the prediction of outcomes like stress, happiness, etc. to each individual, by treating predicting the outcome of a single individual (or a cluster of related individuals) as a task. 
 
-If you have any questions about this code or the associated papers, please email us at jaquesn@mit.edu or sataylor@mit.edu. 
-
-## Please cite our work!
+The code is related to two research papers which explain this approach in further detail: 
 
 Taylor, S.\*, Jaques, N.\*, Nosakhare, E., Sano, A., Picard, R., <strong>"Personalized Multitask Learning for Predicting Tomorrow’s Mood, Stress, and Health"</strong>, IEEE Transactions on Affective Computing December 2017. <small>(\*equal contribution)</small> <a href="https://affect.media.mit.edu/pdfs/17.TaylorJaques-PredictingTomorrowsMoods.pdf">PDF</a>
 
 Jaques, N.\*, Taylor S.\*, Nosakhare E., Sano A., Picard R., <strong>"Multi-task Learning for Predicting Health, Stress, and Happiness", </strong> NIPS Workshop on Machine Learning for Healthcare, December 2016, Barcelona, Spain. <small>(\*equal contribution)</small> <a href="http://affect.media.mit.edu/pdfs/16.Jaques-Taylor-et-al-PredictingHealthStressHappiness.pdf">PDF</a> <strong>*BEST PAPER AWARD*</strong><br/>
 
+<strong>If you find this code useful, please cite our work!</strong>
+
+If you have any questions about this code or the associated papers, please email us at jaquesn@mit.edu or sataylor@mit.edu. 
 
 # Models in this code:
 
@@ -18,15 +19,12 @@ Jaques, N.\*, Taylor S.\*, Nosakhare E., Sano A., Picard R., <strong>"Multi-task
 
 The intuition behind the multitask neural network design is that the shared layers will learn to extract information 
 that is useful for summarizing relevant characteristics of any person’s day into an efficient, generalizable embedding. 
-The final, task-specific layers are then expected to learn how to map this embedding to a prediction customized for each 
-task. 
+The final, task-specific layers are then expected to learn how to map this embedding to a prediction customized for each person or cluster of people.
 
 For example, if the shared layers learn to condense all of the relevant smartphone app data about phone calls and 
 texting into an aggregate measure of social support, the task-specific layers can then learn a unique weighting of this 
 measure for each cluster of participants. Perhaps a cluster containing participants with high extroversion scores will 
 be more strongly affected by a lack of social support than another cluster.
-
-
 
 ## Multitask Multi-kernel Learning (MTMKL)
 
@@ -58,7 +56,7 @@ Wrappers are used to perform a grid search over hyperparameters
 
 ## Input data format
 ### .csv files
-Assume csvs have columns for 'user_id', 'timestamp'
+Assume csvs have columns for 'user_id', 'timestamp', and columns for the outcome labels containing the string '_Label'.
 
 ### 'Task dict list' 
 For the multi-task algorithms, we use a special data structure saved to a pickle file to represent the data from multiple tasks. The code for generating files in this format given a .csv file is available in make_datasets.py. To run it, use:

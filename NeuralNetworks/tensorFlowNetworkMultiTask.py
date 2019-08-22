@@ -1,3 +1,11 @@
+"""Implements a multi-task learning (MTL) neural network.
+
+Each task gets a unique set of final layers that are specific to predicting the
+outcome for each task. These unique final layers are connected to a set of 
+layers that are shared among all tasks. 
+
+To train the network, a batch from one task is sampled and used to update the 
+private task weights, and take a gradient step on the shared task weights."""
 import matplotlib
 matplotlib.use('Agg')	
 import numpy as np

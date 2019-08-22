@@ -1,3 +1,5 @@
+"""Performs hyperparameter sweep for Hierarchical Bayesian Logistic Regression 
+(HBLR)"""
 
 import matplotlib
 matplotlib.use('Agg')

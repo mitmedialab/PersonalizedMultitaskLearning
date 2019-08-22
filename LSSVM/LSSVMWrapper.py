@@ -1,3 +1,5 @@
+"""Performs hyperparameter sweep for the Least Squares Support Vector Machine 
+(LS-SVM)."""
 import matplotlib
 matplotlib.use('Agg')
 import numpy as np

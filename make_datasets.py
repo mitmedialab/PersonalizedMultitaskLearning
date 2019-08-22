@@ -45,13 +45,14 @@ parser.add_argument('--group_users_on', type=str,
 						 "for partitioning users into tasks.")
 
 def getDatasetCoreNameAndPath(datafile):
-	#return datafile[:-4]
 	core_name = os.path.basename(datafile)
 	core_name = os.path.splitext(core_name)[0]
 	path = os.path.splitext(datafile)[0].replace(core_name, '')
 	return core_name, path
 
 def getLabelTaskListFromDataset(datafile, subdivide_phys=True):
+	"""Partitions a .csv file into a task-dict-list pickle file by separating
+	related labels into the different tasks."""
 	df = pd.DataFrame.from_csv(datafile)
 	wanted_labels = [x for x in df.columns.values if '_Label' in x and 'tomorrow_' in x and 'Evening' in x and 'Alertness' not in x and 'Energy' not in x]
 	wanted_feats = [x for x in df.columns.values if x != 'user_id' and x != 'timestamp' and x!= 'dataset' and x!='Cluster' and '_Label' not in x]
@@ -102,6 +103,8 @@ def getFeatPrefix(feat_name, subdivide_phys=False):
 
 def getUserTaskListFromDataset(datafile, target_label, suppress_output=False, 
 							   group_on='user_id', subdivide_phys=False):
+	"""Partitions a .csv file into a task-dict-list pickle file by separating
+	different individuals (users) into the different tasks."""
 	df = pd.DataFrame.from_csv(datafile)
 	wanted_feats = [x for x in df.columns.values if x != 'user_id' and x != 'timestamp' and x!= 'dataset' and x!='classifier_friendly_ppt_id' and 'Cluster' not in x and '_Label' not in x]
 	
