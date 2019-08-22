@@ -28,9 +28,9 @@ Wrappers are used to perform a grid search over hyperparameters
 Assume csvs have columns for 'user_id', 'timestamp'
 
 ### 'Task dict list' 
-For the multi-task algorithms, we use a special data structure saved to a pickle file to represent the data from multiple tasks. 
-The code for generating files in this format given a .csv file is available in make_datasets.py
+For the multi-task algorithms, we use a special data structure saved to a pickle file to represent the data from multiple tasks. The code for generating files in this format given a .csv file is available in make_datasets.py. To run it, use:
 
+```python make_datasets.py --datafile='./example_data.csv' --task_type='users'```
 
 #### File Format details
 - Data for both labels-as-tasks and users-as-tasks are stored in pickled files as a list of dicts (each list item represents a task)

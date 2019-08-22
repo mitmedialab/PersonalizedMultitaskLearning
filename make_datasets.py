@@ -44,15 +44,19 @@ parser.add_argument('--group_users_on', type=str,
 					help="Name of column that indicates user or cluster ID "
 						 "for partitioning users into tasks.")
 
-def getDatasetCoreName(datafile):
-	return datafile[8:-4]
+def getDatasetCoreNameAndPath(datafile):
+	#return datafile[:-4]
+	core_name = os.path.basename(datafile)
+	core_name = os.path.splitext(core_name)[0]
+	path = os.path.splitext(datafile)[0].replace(core_name, '')
+	return core_name, path
 
 def getLabelTaskListFromDataset(datafile, subdivide_phys=True):
 	df = pd.DataFrame.from_csv(datafile)
 	wanted_labels = [x for x in df.columns.values if '_Label' in x and 'tomorrow_' in x and 'Evening' in x and 'Alertness' not in x and 'Energy' not in x]
 	wanted_feats = [x for x in df.columns.values if x != 'user_id' and x != 'timestamp' and x!= 'dataset' and x!='Cluster' and '_Label' not in x]
 
-	core_name = getDatasetCoreName(datafile)
+	core_name, data_path = getDatasetCoreNameAndPath(datafile)
 
 	modality_dict = getModalityDict(wanted_feats, subdivide_phys=subdivide_phys)
 	
@@ -104,7 +108,7 @@ def getUserTaskListFromDataset(datafile, target_label, suppress_output=False,
 	df = helper.normalizeAndFillDataDf(df, wanted_feats, [target_label], suppress_output=True)
 	df = df.reindex(np.random.permutation(df.index))
 
-	dataset_name = getDatasetCoreName(datafile)
+	dataset_name, datapath = getDatasetCoreNameAndPath(datafile)
 	label_name = helper.getFriendlyLabelName(target_label)
 	
 	modality_dict = getModalityDict(wanted_feats, subdivide_phys=subdivide_phys)
