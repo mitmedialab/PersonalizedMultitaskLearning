@@ -1,4 +1,17 @@
-''' HIERARCHICAL BAYES LOGISTIC REGRESSION 
+''' Hierarchical Bayesian Logistic Regression (HBLR)
+
+This model draws logistic regression weights for each task from a shared
+Dirichlet Process (DP) prior. The DP prior induces a clustering of tasks based
+on the learned decision boundaries, such that the number of distinct decision 
+boundaries is equivalent to the number of clusters.
+
+A set of matrices stores the degree of membership of each task in each cluster,
+and the weights for each cluster. 
+
+For more information about this method, see:
+Xue, Y., Liao, X., Carin, L., & Krishnapuram, B. (2007). Multi-task learning 
+for classification with dirichlet process priors. Journal of Machine Learning 
+Research, 8(Jan), 35-63.
 '''
 
 import matplotlib
