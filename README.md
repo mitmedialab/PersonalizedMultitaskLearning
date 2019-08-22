@@ -7,7 +7,7 @@ Taylor, S.\*, Jaques, N.\*, Nosakhare, E., Sano, A., Picard, R., <strong>"Person
 
 Jaques, N.\*, Taylor S.\*, Nosakhare E., Sano A., Picard R., <strong>"Multi-task Learning for Predicting Health, Stress, and Happiness", </strong> NIPS Workshop on Machine Learning for Healthcare, December 2016, Barcelona, Spain. <small>(\*equal contribution)</small> <a href="http://affect.media.mit.edu/pdfs/16.Jaques-Taylor-et-al-PredictingHealthStressHappiness.pdf">PDF</a> <strong>*BEST PAPER AWARD*</strong><br/>
 
-<strong>If you find this code useful, please cite our work!<strong>
+<strong>If you find this code useful, please cite our work!</strong>
 
 If you have any questions about this code or the associated papers, please email us at jaquesn@mit.edu or sataylor@mit.edu. 
 
@@ -26,8 +26,6 @@ For example, if the shared layers learn to condense all of the relevant smartpho
 texting into an aggregate measure of social support, the task-specific layers can then learn a unique weighting of this 
 measure for each cluster of participants. Perhaps a cluster containing participants with high extroversion scores will 
 be more strongly affected by a lack of social support than another cluster.
-
-
 
 ## Multitask Multi-kernel Learning (MTMKL)
 
