@@ -1,5 +1,5 @@
 # Personalized Multitask Learning
-This repo contains code for 3 multitask machine learning methods: deep neural networks, Multitask Multi-kernel Learning (MTMKL), and a hierarchical Bayesian model (HBLR). These methods can be used to personalize the prediction of outcomes like stress, happiness, etc. to each individual, by treating predicting the outcome of one individual as a task. 
+This repo contains code for 3 multitask machine learning methods: deep neural networks, Multitask Multi-kernel Learning (MTMKL), and a hierarchical Bayesian model (HBLR). These methods can be used to personalize the prediction of outcomes like stress, happiness, etc. to each individual, by treating predicting the outcome of a single individual (or a cluster of related individuals) as a task. 
 
 The code is related to two research papers which explain this approach in further detail: 
 
@@ -19,8 +19,7 @@ If you have any questions about this code or the associated papers, please email
 
 The intuition behind the multitask neural network design is that the shared layers will learn to extract information 
 that is useful for summarizing relevant characteristics of any person’s day into an efficient, generalizable embedding. 
-The final, task-specific layers are then expected to learn how to map this embedding to a prediction customized for each 
-task. 
+The final, task-specific layers are then expected to learn how to map this embedding to a prediction customized for each person or cluster of people.
 
 For example, if the shared layers learn to condense all of the relevant smartphone app data about phone calls and 
 texting into an aggregate measure of social support, the task-specific layers can then learn a unique weighting of this 
