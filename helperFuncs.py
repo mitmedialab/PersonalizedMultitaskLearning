@@ -51,7 +51,7 @@ def computeRecall(preds, true_y):
 
 def computeDistanceFromBaseline(preds, true_y):
 	if len(np.shape(preds)) > 1:
-		print "ERROR! Baseline distance function not defined for multi-dimensional predictions"
+		print("ERROR! Baseline distance function not defined for multi-dimensional predictions")
 		return np.nan
 	baseline = getBaseline(true_y)
 	acc = getBinaryAccuracy(preds,true_y)
@@ -68,17 +68,18 @@ def computeAllMetricsForPreds(preds, true_y):
 def checkTaskList(train_tasks):
 	for t in range(len(train_tasks)):
 		isValidTask(train_tasks,t)
-	print "...done!"
+	print("...done!")
 
 def isValidTask(train_tasks, t, print_msgs=True):
 	if train_tasks[t]['Y'] is None or train_tasks[t]['X'] is None:
-		if print_msgs: print "Uh oh,", train_tasks[t]['Name'], "is None!!"
+		if print_msgs: print("Uh oh,", train_tasks[t]['Name'], "is None!!")
 		return False
 	elif len(train_tasks[t]['X']) == 0:
-		if print_msgs: print "Uh oh,", train_tasks[t]['Name'], "has no data!"
+		if print_msgs: print("Uh oh,", train_tasks[t]['Name'], "has no data!")
 		return False
 	elif len(train_tasks[t]['X']) != len(train_tasks[t]['Y']):
-		if print_msgs: print "Uh oh,", train_tasks[t]['Name'], "has fucked up data! Lengths of X and Y don't match"
+		if print_msgs: print("Uh oh,", train_tasks[t]['Name'], 
+							 "has messed up data! Lengths of X and Y don't match")
 		return False
 	return True
 
@@ -161,10 +162,12 @@ def fixTaskListFile(task_list,debug=False):
 	num_feats = calculateNumFeatsInTaskList(task_list)
 	for i in range(len(task_list)):
 		if task_list[i]["Y"] is None:
-			if debug: print "Y for task", task_list[i]['Name'], "is None, fixing"
+			if debug: print("Y for task", task_list[i]['Name'], 
+							"is None, fixing")
 			task_list[i]['Y'] = np.zeros((0))
 		if task_list[i]['X'] is None:
-			if debug: print "X for task", task_list[i]['Name'], "is None, fixing"
+			if debug: print("X for task", task_list[i]['Name'], 
+							"is None, fixing")
 			task_list[i]['X'] = np.zeros((0,num_feats))
 	return task_list
 
@@ -181,13 +184,13 @@ def generateCrossValPickleFiles(datasets_path, file_prefix, num_cross_folds):
 	save_prefix = getTaskListFileCoreName(file_prefix)
 
 	if os.path.exists(datasets_path + "CVFold0" + save_prefix + "Train.p"):
-		print "\nCross validation folds have already been created"
+		print("\nCross validation folds have already been created")
 		return
 
 	train_tasks = pickle.load(open(datasets_path + file_prefix + "Train.p","rb"))
 	val_tasks =  pickle.load(open(datasets_path + file_prefix + "Val.p","rb"))
 	
-	print "\nGenerating cross validation sets"
+	print("\nGenerating cross validation sets")
 	new_train_tasks = [0] * (num_cross_folds+1)
 	new_val_tasks = [0] * num_cross_folds
 	for f in range(num_cross_folds):
@@ -296,7 +299,7 @@ def getOfficialLabelName(string):
 	elif 'Health' in string:
 		return 'tomorrow_'+type_mod+'_Health_Evening_Label'
 	else:
-		print "Error! Could not determine official label name"
+		print("Error! Could not determine official label name")
 		return None
 
 def getMinutesFromMidnight(df, feature):
@@ -305,13 +308,13 @@ def getMinutesFromMidnight(df, feature):
 	return [time if not pd.isnull(time) else np.nan for time in mins]
 
 def mergeDataframes(all_df, mod_df, mod_name, merge_type='inner',merge_keys=['user_id','timestamp']):
-	print "Merging", mod_name
+	print("Merging", mod_name)
 	old_len = len(all_df)
-	print "\tMerged df started with", old_len, "samples"
-	print "\t", mod_name, "has", len(mod_df), "samples"
+	print("\tMerged df started with", old_len, "samples")
+	print("\t", mod_name, "has", len(mod_df), "samples")
 	all_df = pd.merge(all_df, mod_df, how=merge_type, on=merge_keys)
-	print "\tMerged df now has", len(all_df), "samples"
-	print mod_name, "is missing at least", old_len - len(all_df), "samples"
+	print("\tMerged df now has", len(all_df), "samples")
+	print(mod_name, "is missing at least", old_len - len(all_df), "samples")
 	
 	return all_df
 
@@ -356,7 +359,8 @@ def removeNullCols(df, features):
 		for feat in null_cols_val:
 			if feat not in null_cols:
 				null_cols.append(feat)
-		print "Found", len(null_cols), "columns that were completely null. Removing", null_cols
+		print("Found", len(null_cols), 
+			  "columns that were completely null. Removing", null_cols)
 
 		df = dropCols(df,null_cols)
 		for col in null_cols:
@@ -405,9 +409,11 @@ def normalizeAndFillDataDf(df, wanted_feats, wanted_labels, suppress_output=Fals
 	if remove_cols:
 		data_df, wanted_feats = removeNullCols(data_df, wanted_feats)
 
-	if not suppress_output: print "Original data length was", len(data_df)
+	if not suppress_output: print("Original data length was", len(data_df))
 	data_df = data_df.dropna(subset=wanted_labels, how='any')
-	if not suppress_output: print "After dropping rows with nan in any label column, length is", len(data_df)
+	if not suppress_output: print(
+		"After dropping rows with nan in any label column, length is", 
+		len(data_df))
 
 	data_df = data_df.fillna(NAN_FILL_VALUE) #if dataset is already filled, won't do anything
 
@@ -496,12 +502,12 @@ def partitionRandomSubset(X, Y, size, replace=False, return_remainder=True):
 
 def generateCrossValSet(train_X, train_y, val_X, val_y, num_cross_folds, verbose=True):
 	if verbose:
-		print "...generating cross validation folds..."
+		print("...generating cross validation folds...")
 
 	fullTrain_X = np.concatenate((train_X,val_X))
 	fullTrain_y = np.concatenate((train_y,val_y))
 	if len(fullTrain_X) <= 1:
-		print "LENGTH IS", len(fullTrain_X)
+		print("LENGTH IS", len(fullTrain_X))
 	crossVal_X = []
 	crossVal_y = []
 
@@ -515,9 +521,7 @@ def generateCrossValSet(train_X, train_y, val_X, val_y, num_cross_folds, verbose
 		crossVal_X.append(sub_X)
 		crossVal_y.append(sub_y)
 		if len(remainder_X) == 0:
-			#print "Insufficient data to make all the folds."
-			#print "\tFull train length:", len(fullTrain_X)
-			#print "\tNumber of folds made:", len(crossVal_X), "\n"
+			# Insufficient data to make all folds, returning remaining.
 			return crossVal_X, crossVal_y
 	crossVal_X.append(remainder_X)
 	crossVal_y.append(remainder_y)
@@ -601,7 +605,8 @@ def get_test_predictions_for_df_with_task_column(model_predict_func, csv_path, t
 	
 	wanted_feats = [x for x in data_df.columns.values if x != 'user_id' and x != 'timestamp' and 'ppt_id' not in x and x!= 'dataset' and '_Label' not in x and 'Cluster' not in x]
 	if num_feats_expected is not None and len(wanted_feats) != num_feats_expected:
-		print "Error! Found", len(wanted_feats), "features but was expecting to find", num_feats_expected
+		print("Error! Found", len(wanted_feats), 
+			  "features but was expecting to find", num_feats_expected)
 		return
 
 	if wanted_label is not None:
@@ -623,15 +628,16 @@ def get_test_predictions_for_df_with_task_column(model_predict_func, csv_path, t
 		preds = model_predict_func(X, i)
 		data_df.loc[task_df.index.values,'test_pred_'+label_name] = preds
 
-	print "Predictions have been computed and are stored in dataframe."
+	print("Predictions have been computed and are stored in dataframe.")
 	
 	if wanted_label is not None and wanted_label in data_df.columns.values:
 		test_df = data_df[data_df['dataset']=='Test']
 		all_preds = test_df['test_pred_'+label_name].tolist()
 		all_true = test_df[wanted_label].tolist()
-		print "FINAL METRICS ON TEST SET:", computeAllMetricsForPreds(all_preds, all_true)
+		print("FINAL METRICS ON TEST SET:", 
+			  computeAllMetricsForPreds(all_preds, all_true))
 	else:
-		print "Cannot print test results unless wanted_label is set correctly"
+		print("Cannot print test results unless wanted_label is set correctly")
 
 	return data_df
 
@@ -641,7 +647,8 @@ def get_test_predictions_for_df_with_no_task_column(model_predict_func, csv_path
 	
 	wanted_feats = [x for x in data_df.columns.values if x != 'user_id' and x != 'timestamp' and x!= 'dataset' and '_Label' not in x and 'Cluster' not in x]
 	if num_feats_expected is not None and len(wanted_feats) != num_feats_expected:
-		print "Error! Found", len(wanted_feats), "features but was expecting to find", num_feats_expected
+		print("Error! Found", len(wanted_feats), 
+			  "features but was expecting to find", num_feats_expected)
 		return
 
 	for i,task_dict in enumerate(tasks):
@@ -657,9 +664,10 @@ def get_test_predictions_for_df_with_no_task_column(model_predict_func, csv_path
 		test_df = test_df.dropna(subset=[wanted_label], how='any')
 		all_preds = test_df['test_pred_'+label_name].tolist()
 		all_true = test_df[wanted_label].tolist()
-		print "FINAL METRICS ON TEST SET for label", label_name, ":", computeAllMetricsForPreds(all_preds, all_true)
+		print("FINAL METRICS ON TEST SET for label", label_name, ":", 
+			  computeAllMetricsForPreds(all_preds, all_true))
 
-	print "Predictions have been computed and are stored in dataframe."
+	print("Predictions have been computed and are stored in dataframe.")
 	
 	return data_df
 	
