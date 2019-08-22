@@ -49,6 +49,9 @@ own (soft) clustering. This model clusters tasks that are most similar in terms 
 input features and their resulting outcome (i.e. decision boundaries) while simultaneously learning the prediction 
 function.
 
+## Single Task Learning models
+Code to train a logistic regression model, an LSSVM, and a single-task neural network is include for comparison purposes.
+
 # Structure
 
 ## Code structure
