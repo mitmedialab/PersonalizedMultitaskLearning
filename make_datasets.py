@@ -1,3 +1,16 @@
+""" This file contains functions for converting a .csv dataset into the 
+	'task dict list' format used by the rest of the code. The .csv file must 
+	have a particular format, with columns like 'user_id', and outcome columns
+	containining '_Label'. For an example, see the file 'example_data.csv'. 
+
+	How to partition tasks:
+		'users-as-tasks': The .csv file will be partioned such that predicting 
+			the outcome of each user is one task.
+		'labels-as-tasks': The .csv file will be partitioned such that 
+			predicting related outcomes is each task (e.g. predicting stress
+			is one task and predicting happiness is another)
+"""
+
 import numpy as np
 import pandas as pd
 import sklearn as sk
@@ -12,15 +25,20 @@ from sklearn.cross_validation import StratifiedShuffleSplit
 CODE_PATH = os.path.dirname(os.getcwd())
 sys.path.append(CODE_PATH)
 
-DEFAULT_RESULTS_PATH = '/Your/path/here/'
-DEFAULT_DATASETS_PATH = '/Your/path/here/'
-DEFAULT_FIGURES_PATH = '/Your/path/here/'
+parser = argparse.ArgumentParser()
+parser.add_argument('--datafile', type=str, default='/Your/path/here/')
+parser.add_argument('--task_type', type=str, default='users', 
+					help="How to partition related tasks; can be 'users' so "
+						 "that predicting the outcome for each user is its own "
+						 "task, or 'labels', so that predicting related "
+						 "outcomes (like stress, happiness, etc) are their "
+						 "own tasks.")
 
 def getDatasetCoreName(datafile):
 	return datafile[8:-4]
 
-def getWellbeingTaskListFromDataset(datafile, data_path=PATH_TO_DATASETS, subdivide_phys=True):
-	df = pd.DataFrame.from_csv(data_path + datafile)
+def getLabelTaskListFromDataset(datafile, subdivide_phys=True):
+	df = pd.DataFrame.from_csv(datafile)
 	wanted_labels = [x for x in df.columns.values if '_Label' in x and 'tomorrow_' in x and 'Evening' in x and 'Alertness' not in x and 'Energy' not in x]
 	wanted_feats = [x for x in df.columns.values if x != 'user_id' and x != 'timestamp' and x!= 'dataset' and x!='Cluster' and '_Label' not in x]
 
@@ -68,9 +86,9 @@ def getFeatPrefix(feat_name, subdivide_phys=False):
 		idx = feat_name.find(':')
 		return feat_name[0:idx]
 
-def getUserTaskListFromDataset(datafile, target_label, datapath=PATH_TO_DATASETS, suppress_output=False, 
+def getUserTaskListFromDataset(datafile, target_label, suppress_output=False, 
 							   group_on='user_id', subdivide_phys=False):
-	df = pd.DataFrame.from_csv(datapath + datafile)
+	df = pd.DataFrame.from_csv(datafile)
 	wanted_feats = [x for x in df.columns.values if x != 'user_id' and x != 'timestamp' and x!= 'dataset' and x!='classifier_friendly_ppt_id' and 'Cluster' not in x and '_Label' not in x]
 	
 	df = helper.normalizeAndFillDataDf(df, wanted_feats, [target_label], suppress_output=True)
@@ -113,3 +131,5 @@ def constructTaskDict(task_name, mini_df, wanted_feats, target_label, modality_d
 	task_dict['Name'] = task_name
 	task_dict['ModalityDict'] = modality_dict
 	return task_dict
+
+if __name__ == '__main__':
