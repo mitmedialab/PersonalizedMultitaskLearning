@@ -1,3 +1,4 @@
+"""Implements a Least Squares Support Vector Machine (LS-SVM)."""
 from sklearn.metrics.pairwise import rbf_kernel
 import numpy as np
 import matplotlib.pyplot as plt

@@ -1,3 +1,9 @@
+"""These abstract wrapper classes are designed to enable hyperparameter sweeps 
+for a variety of different models that inherit them. 
+
+Note: STL stands for Single-Task-Learning, i.e. normal machine learning 
+algorithms like SVM, logistic regression, etc."""
+
 import numpy as np
 import pandas as pd
 import os

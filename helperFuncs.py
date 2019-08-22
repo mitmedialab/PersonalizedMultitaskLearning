@@ -1,3 +1,4 @@
+"""Collection of utility functions to support the rest of the code."""
 import numpy as np
 import pandas as pd
 import copy

@@ -1,3 +1,9 @@
+"""Implements Multi-task Multi-kernel Learning (MTMKL)
+
+This multi-task learning (MTL) classifier learns a set of kernels for different 
+groups of features (or feature modalities). Each task learns to combine these
+kernels with a different set of weights. The weights are regularized globally
+to share information among the tasks."""
 import numpy as np
 import scipy.optimize as opt
 import scipy.linalg as la

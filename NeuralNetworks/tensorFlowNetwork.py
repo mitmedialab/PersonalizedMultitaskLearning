@@ -1,3 +1,5 @@
+"""Implements a generic, single-task learning (STL) fully-connected neural 
+network in Tensorflow."""
 import matplotlib
 matplotlib.use('Agg')
 import numpy as np

@@ -1,3 +1,5 @@
+"""Performs a hyperparameter sweep for the Single Task Learning (STL) neural
+network."""
 import pandas as pd
 import numpy as np
 import tensorflow as tf
