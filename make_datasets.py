@@ -1,7 +1,7 @@
 """ This file contains functions for converting a .csv dataset into the 
 	'task dict list' format used by the rest of the code. The .csv file must 
 	have a particular format, with columns like 'user_id', and outcome columns
-	containining '_Label'. For an example, see the file 'example_data.csv'. 
+	containing '_Label'. For an example, see the file 'example_data.csv'. 
 
 	How to partition tasks:
 		'users-as-tasks': The .csv file will be partioned such that predicting 
@@ -20,6 +20,8 @@ import pickle
 import random
 import time
 import copy
+import argparse
+import helperFuncs as helper
 from sklearn.cross_validation import StratifiedShuffleSplit
 
 CODE_PATH = os.path.dirname(os.getcwd())
@@ -33,6 +35,14 @@ parser.add_argument('--task_type', type=str, default='users',
 						 "task, or 'labels', so that predicting related "
 						 "outcomes (like stress, happiness, etc) are their "
 						 "own tasks.")
+parser.add_argument('--target_label', type=str, 
+					default='tomorrow_Happiness_Evening_Label',
+					help="Outcome label to predict for each user in "
+						 "users-as-tasks")
+parser.add_argument('--group_users_on', type=str, 
+					default='user_id',
+					help="Name of column that indicates user or cluster ID "
+						 "for partitioning users into tasks.")
 
 def getDatasetCoreName(datafile):
 	return datafile[8:-4]
@@ -104,7 +114,7 @@ def getUserTaskListFromDataset(datafile, target_label, suppress_output=False,
 	test_task_dict_list = []
 	for user in df[group_on].unique(): 
 		if not suppress_output:
-			print "Processing task", user
+			print("Processing task", user)
 		mini_df = df[df[group_on] == user]
 
 		train_task_dict_list.append(constructTaskDict(user, mini_df, wanted_feats, target_label, modality_dict, 'Train'))
@@ -133,3 +143,15 @@ def constructTaskDict(task_name, mini_df, wanted_feats, target_label, modality_d
 	return task_dict
 
 if __name__ == '__main__':
+	kwargs = vars(parser.parse_args())
+
+	if kwargs['task_type'] == 'labels':
+		print("Creating a label task-dict-list dataset where tasks are "
+			  "predicting related outcome labels.")
+		getLabelTaskListFromDataset(kwargs['datafile'])
+	else:
+		print("Creating a user task-dict-list dataset where tasks are "
+			  "predicting the outcome of each different person (user).")
+		getUserTaskListFromDataset(kwargs['datafile'], 
+								   target_label=kwargs['target_label'],
+							       group_on=kwargs['group_users_on'])
