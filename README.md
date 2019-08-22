@@ -29,7 +29,7 @@ Assume csvs have columns for 'user_id', 'timestamp'
 
 ### 'Task dict list' 
 For the multi-task algorithms, we use a special data structure saved to a pickle file to represent the data from multiple tasks. 
-The code for generating files in this format give a .csv file is available in make_datasets.py
+The code for generating files in this format given a .csv file is available in make_datasets.py
 
 
 #### File Format details
@@ -37,7 +37,6 @@ The code for generating files in this format give a .csv file is available in ma
 - Each list item represents a task
 - To load a task_list_dict, do the following (use the desired data file name):
 ```task_dict_list = pickle.load(open(PATH_TO_DATASETS + "datasetTaskList-UsersAsTasks-Discard-Simple-Happiness_Train.p","rb"))```
-
 
 
 - There are two types of task dicts:
