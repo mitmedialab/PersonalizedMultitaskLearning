@@ -55,7 +55,7 @@ Code to train a logistic regression model, an LSSVM, and a single-task neural ne
 # Structure
 
 ## Code structure
-Wrappers are used to perform a grid search over hyperparameters
+Wrappers are used to perform a grid search over hyperparameters. The file `run_jobs.py` can be used to launch the training of several models in sequence, and send emails after they complete. To see an example of how to run the training code for the models, see `jobs_to_run.txt`. 
 
 ## Input data format
 ### .csv files

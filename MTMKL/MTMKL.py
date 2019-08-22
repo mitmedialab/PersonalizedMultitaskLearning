@@ -3,7 +3,12 @@
 This multi-task learning (MTL) classifier learns a set of kernels for different 
 groups of features (or feature modalities). Each task learns to combine these
 kernels with a different set of weights. The weights are regularized globally
-to share information among the tasks."""
+to share information among the tasks.
+
+This model was originally proposed in:
+Kandemir, M., Vetek, A., Goenen, M., Klami, A., & Kaski, S. (2014). 
+Multi-task and multi-view learning of user state. Neurocomputing, 139, 97-106.
+"""
 import numpy as np
 import scipy.optimize as opt
 import scipy.linalg as la
