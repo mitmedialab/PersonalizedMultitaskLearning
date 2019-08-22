@@ -206,7 +206,7 @@ class TensorFlowSTLWrapper:
 										else:
 											#decay steps and decay rate don't matter if decay is set to false
 											results_dict = self.testOneSettingForOneTask(hidden_layers, l2_beta, lrate, dropout, decay, 10000, 0.95, bsize, opt, tsteps)
-											df = df.append(results_dict ,ignore_index=True)				
+											df = df.append(results_dict ,ignore_index=True)
 		
 		accuracies = df['val_acc'].tolist()
 		max_acc = max(accuracies)
