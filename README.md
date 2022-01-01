@@ -72,7 +72,7 @@ For the multi-task algorithms, we use a special data structure saved to a pickle
         - The .csv file will be partitioned such that predicting related outcomes is each task (e.g. predicting stress is one task and predicting happiness is another)
         - Normalization is done based on training data for entire group
 	- Users-as-tasks:
-        - The .csv file will be partioned such that predicting the outcome of each user is one task.
+        - The .csv file will be partitioned such that predicting the outcome of each user is one task.
         - Need to specify which label to target (i.e., the label that you will be predicting)
         - Normalization is done per-person
         
